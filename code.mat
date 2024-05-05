@@ -1,0 +1,59 @@
+% SSCB Implementation
+
+% Define parameters
+V_supply = 230; % Supply voltage (V)
+I_max = 100; % Maximum current (A)
+R_load = 1; % Load resistance (Ohm)
+V_threshold = 250; % Overvoltage threshold (V)
+I_threshold = 120; % Overcurrent threshold (A)
+
+% Simulate SSCB operation
+t = linspace(0, 10, 1000); % Time vector (0 to 10 seconds)
+V_load = zeros(size(t)); % Initialize load voltage
+I_load = zeros(size(t)); % Initialize load current
+
+% SSCB components
+semiconductor_device = 'MOSFET'; % Choose semiconductor device
+control_unit = 'Microcontroller'; % Choose control unit
+protection_algorithm = 'PID Controller'; % Choose protection algorithm
+gate_driver = 'Gate Driver IC'; % Choose gate driver
+sensor = 'Current and Voltage Sensors'; % Choose sensor
+communication_interface = 'Ethernet'; % Choose communication interface
+
+% SSCB operation
+for i = 1:length(t)
+    % Simulate load conditions
+    if t(i) < 5
+        V_load(i) = V_supply;
+        I_load(i) = V_supply / R_load;
+    else
+        V_load(i) = 0;
+        I_load(i) = 0;
+    end
+    
+    % Check for overvoltage and overcurrent
+    if V_load(i) > V_threshold || I_load(i) > I_threshold
+        % Trigger circuit breaker
+        disp('Circuit breaker triggered!'); % Display message
+        
+        % Activate protection mechanisms
+        % (Implementation of protection algorithms, fault tolerance, etc.)
+        
+        % Communication to external devices
+        disp(['Sending alert via ' communication_interface]); % Display message
+    end
+end
+
+% Plot load voltage and current
+figure;
+subplot(2,1,1);
+plot(t, V_load);
+xlabel('Time (s)');
+ylabel('Load Voltage (V)');
+title('Load Voltage vs Time');
+
+subplot(2,1,2);
+plot(t, I_load);
+xlabel('Time (s)');
+ylabel('Load Current (A)');
+title('Load Current vs Time');
